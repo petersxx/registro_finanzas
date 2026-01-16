@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Finanzas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/style.css") }}">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-dark bg-primary mb-4">
+        <div class="container">
+            <span class="navbar-brand mb-0 h1">💰 Mi Gestor de Ingresos y Egresos</span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Dashboard de Balance -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card text-white bg-success mb-3 shadow">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Ingresos</h5>
+                        <h3 id="total-ingresos">$0.00</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-danger mb-3 shadow">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Egresos</h5>
+                        <h3 id="total-egresos">$0.00</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-dark mb-3 shadow">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Balance Total</h5>
+                        <h3 id="balance-total">$0.00</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Formulario -->
+            <div class="col-md-4">
+                <div class="card shadow">
+                    <div class="card-header bg-white font-weight-bold">Añadir Transacción</div>
+                    <div class="card-body">
+                        <form id="form-transaccion">
+                            <div class="mb-3">
+                                <label class="form-label">Concepto</label>
+                                <input type="text" id="concepto" class="form-control" placeholder="Ej: Sueldo, Alquiler..." required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Monto</label>
+                                <input type="number" step="0.01" id="monto" class="form-control" placeholder="0.00" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Tipo</label>
+                                <select id="tipo" class="form-select">
+                                    <option value="ingreso">Ingreso</option>
+                                    <option value="egreso">Egreso</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Guardar</button>
+                        </form>
+                        
+                        <hr class="my-4">
+                        
+                        <!-- Importar CSV -->
+                        <form id="form-csv" enctype="multipart/form-data">
+                            <label class="form-label fw-bold">Importar Estado de Cuenta (CSV)</label>
+                            <input type="file" id="csv-file" class="form-control form-control-sm mb-2" accept=".csv">
+                            <button type="submit" class="btn btn-outline-success w-100 btn-sm">📥 Importar CSV</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Resumen Mensual -->
+                <div class="card shadow mt-4">
+                    <div class="card-header bg-white font-weight-bold">Resumen Mensual</div>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush" id="resumen-mensual">
+                            <!-- Se llena con JS -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Listado -->
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-white">Historial de Movimientos</div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Hora</th>
+                                        <th>Concepto</th>
+                                        <th>Monto</th>
+                                        <th>Tipo</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="lista-transacciones">
+                                    <!-- Se llena con JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card shadow">
+            <div class="card-header bg-white font-weight-bold">Análisis de Gastos vs Ingresos</div>
+            <div class="card-body">
+                <canvas id="graficoBalance" height="100"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

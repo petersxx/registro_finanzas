@@ -1,0 +1,8 @@
+# Ignorar solo la base de datos (tus gastos privados)
+finanzas.db
+
+# Ignorar los reportes del banco que descargues
+*.csv
+
+# Ignorar carpetas basura de Python
+__pycache__/
